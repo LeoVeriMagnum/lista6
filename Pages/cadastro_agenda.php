@@ -9,7 +9,15 @@
 <body>
 <?php
     include("conexao.php");
+    $nome_foto = "";
 
+    if(file_exists($_FILES['foto']['tmp_name'])){
+    $pasta_destino = 'foto/';
+    $extensao = strtolower(substr($_FILES['foto']['name'], -4));
+    $nome_foto = $pasta_destino.date("Ymd-His") . $extensao;
+    move_uploaded_file($_FILES['foto']['tmp_name'], $nome_foto);
+    // fim upload
+    }
     $apelido = $_POST['apelido'];
     $email = $_POST['email'];
     $telefone = $_POST['telefone'];
@@ -44,10 +52,10 @@
     
     
     $sql = "insert into agenda (apelido, endereco, bairro, cidade, estado, 
-    telefone, celular, email, dt_cadastro)";
+    telefone, celular, email, dt_cadastro, foto)";
 
     $sql .= "values ('".$apelido."','".$endereco."', '".$bairro."', '".$cidade."','".$estado."',
-    '".$telefone."','".$celular."', '".$email."', '".$date."')";
+    '".$telefone."','".$celular."', '".$email."', '".$date."','".$nome_foto."')";
 
     $result = mysqli_query($con, $sql);
     if ($result)

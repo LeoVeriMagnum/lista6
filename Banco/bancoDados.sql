@@ -13,5 +13,6 @@ CREATE TABLE AGENDA(
     celular varchar(15) not null,
     email varchar(70) not null,
     dt_cadastro date,
+    nome_foto varchar(100) null,
     primary key (id_agenda)
 );
